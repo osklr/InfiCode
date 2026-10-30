@@ -3,7 +3,7 @@
 ## `no candidate (provider, model) matched the given filters`
 **Cause:** Cline is rejecting the request because it doesn't know the model's capabilities, or it is asking for a context window larger than the free providers allow.
 **Fix:** Ensure you are using a specific Model ID (not `auto` or `agent`) and manually set the limits in Cline:
-- **Model ID:** `pollinations/openai-fast`
+- **Model ID:** `kilo/poolside/laguna-s-2.1:free`
 - **Context Window:** `32000`
 - **Max Output Tokens:** `4096`
 

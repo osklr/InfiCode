@@ -45,7 +45,7 @@ InfiCode is a reproducible VS Code environment template that connects Cline to a
    - **API Provider:** `OpenAI Compatible`
    - **Base URL:** `http://localhost:8080/v1`
    - **API Key:** `anything`
-   - **Model ID:** `pollinations/openai-fast`
+   - **Model ID:** `kilo/poolside/laguna-s-2.1:free`
    - **Context Window:** `32000`
    - **Max Output Tokens:** `4096`
    - **Supports Images:** `OFF`

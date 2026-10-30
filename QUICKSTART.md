@@ -41,7 +41,7 @@ Open VS Code, go to the Cline settings (gear icon), and set the following:
 - **API Provider:** `OpenAI Compatible`
 - **Base URL:** `http://localhost:8080/v1`
 - **API Key:** `anything` (this is ignored by the local proxy)
-- **Model ID:** `pollinations/openai-fast`
+- **Model ID:** `kilo/poolside/laguna-s-2.1:free`
 - **Context Window:** `32000`
 - **Max Output Tokens:** `4096`
 - **Supports Images:** `OFF`

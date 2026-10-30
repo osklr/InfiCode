@@ -71,16 +71,15 @@ cat <<'EOF'
        API Provider     : OpenAI Compatible
        Base URL         : http://localhost:8080/v1
        API Key          : anything
-       Model ID         : pollinations/openai-fast
+       Model ID         : kilo/poolside/laguna-s-2.1:free
        Context Window   : 32000
        Max Output Tokens: 4096
        Supports Images  : OFF
        Supports Comp Use: ON
 
-  Note: Cline requires a specific Model ID and manual capability 
-  limits for custom endpoints. Using 'auto' or 'agent' may fail 
-  validation. If 'pollinations/openai-fast' is unavailable, try 
-  'kilo/poolside/laguna-s-2.1:free'.
+  Note: Cline requires a specific Model ID and manual capability limits 
+  for custom endpoints. Using generic aliases like 'auto' or 'agent' 
+  may fail validation.
 
   freellmpool stores its own config at ~/.config/freellmpool/
   InfiCode never modifies that directory.
