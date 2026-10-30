@@ -26,6 +26,7 @@ InfiCode is a reproducible VS Code environment template that connects Cline to a
    ```powershell
    git clone https://github.com/osklr/InfiCode.git
    cd InfiCode
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    .\scripts\restore.ps1
    ```
 

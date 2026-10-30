@@ -23,3 +23,10 @@ Or change the `PORT` variable inside `scripts/start-freellmpool.sh`.
 ## `freellmpool` command not found
 **Cause:** The virtual environment is not activated, or `restore.sh` failed.
 **Fix:** Run the proxy script directly (`./scripts/start-freellmpool.sh`). It automatically activates the `.venv`. If that fails, delete the `.venv` folder and run `./scripts/restore.sh` again.
+
+## PowerShell says "running scripts is disabled on this system"
+**Cause:** Windows blocks executing `.ps1` scripts by default for security.
+**Fix:** You need to bypass the execution policy for your current terminal session only. Run this command before running the scripts:
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```

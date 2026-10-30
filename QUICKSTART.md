@@ -3,23 +3,36 @@
 Follow these steps to get InfiCode running on your machine.
 
 ## Prerequisites
-- macOS or Linux (Windows support is coming in Phase 2)
+- **macOS, Linux, or Windows**
 - Python 3.10 or newer
-- Visual Studio Code
+- [Visual Studio Code](https://code.visualstudio.com/)
 - The [Cline extension](https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev) installed in VS Code
 
 ## Step 1: Setup the environment
 Run the restore script. This will create a local virtual environment and install the freellmpool proxy.
 
+**macOS / Linux:**
 ```sh
 ./scripts/restore.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\scripts\restore.ps1
 ```
 
 ## Step 2: Start the proxy
 Start the local OpenAI-compatible proxy. Keep this terminal running.
 
+**macOS / Linux:**
 ```sh
 ./scripts/start-freellmpool.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+.\scripts\start-freellmpool.ps1
 ```
 
 ## Step 3: Configure Cline
