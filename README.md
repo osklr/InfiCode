@@ -7,18 +7,36 @@ InfiCode is a reproducible VS Code environment template that connects Cline to a
 - **No Lock-in:** No API keys required to start. No Cursor or Copilot subscription needed.
 - **Reproducible:** A single script sets up the entire local environment in seconds.
 
+## Prerequisites
+- **macOS, Linux, or Windows**
+- Python 3.10 or newer
+- [Visual Studio Code](https://code.visualstudio.com/)
+- The [Cline extension](https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev) installed in VS Code
+
 ## Quick Start
 
 1. **Clone and restore:**
+   **macOS / Linux:**
    ```sh
    git clone https://github.com/osklr/InfiCode.git
    cd InfiCode
    ./scripts/restore.sh
    ```
+   **Windows (PowerShell):**
+   ```powershell
+   git clone https://github.com/osklr/InfiCode.git
+   cd InfiCode
+   .\scripts\restore.ps1
+   ```
 
 2. **Start the proxy:**
+   **macOS / Linux:**
    ```sh
    ./scripts/start-freellmpool.sh
+   ```
+   **Windows (PowerShell):**
+   ```powershell
+   .\scripts\start-freellmpool.ps1
    ```
 
 3. **Configure Cline:**
