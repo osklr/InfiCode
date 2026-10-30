@@ -30,3 +30,11 @@ Or change the `PORT` variable inside `scripts/start-freellmpool.sh`.
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
+
+## Cline gets stuck in a recursive loop trying to create a file
+**Cause:** Sometimes, AI models try to use Linux/Bash terminal commands (like `cat > file.txt` or `python -c`) to create files. This fails on Windows PowerShell, causing Cline to repeat the same failing command in a loop.
+**Fix:** 
+1. Click the red **Stop** button in Cline to cancel the task.
+2. Click **New Task** to start fresh.
+3. This repository includes a `.clinerules` file which tells Cline to use its native file tools instead of the terminal. Ensure this file is in your project root.
+4. Keep **"Execute commands"** unchecked in Cline's Auto-approve settings to prevent runaway terminal commands.

@@ -1,0 +1,12 @@
+# InfiCode Cline Rules
+
+## File Creation & Editing Rules
+1. **NEVER use terminal commands (like `cat`, `echo`, or `python -c`) to write or modify files.** You must ALWAYS use your native `write_to_file` or `replace_in_file` tools.
+2. **ALWAYS use relative paths** (e.g., `index.html` or `scripts/test.py`). NEVER use absolute paths like `/index.html` or `C:\path\to\file`.
+3. If a file is too large to generate in one step, tell the user to increase the Max Output Tokens in your settings, but still use your native file tools.
+
+## Windows Compatibility
+- Users may be on Windows PowerShell. Do not use Linux/Bash syntax (like heredocs `<< EOF`). Rely strictly on your built-in editor tools.
+
+## Loop Prevention
+- If a command fails, do not repeat the exact same command more than once. Analyze the error and change your approach.
