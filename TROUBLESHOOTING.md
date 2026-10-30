@@ -4,8 +4,8 @@
 **Cause:** Cline is rejecting the request because it doesn't know the model's capabilities, or it is asking for a context window larger than the free providers allow.
 **Fix:** Ensure you are using a specific Model ID (not `auto` or `agent`) and manually set the limits in Cline:
 - **Model ID:** `kilo/poolside/laguna-s-2.1:free`
-- **Context Window:** `32000`
-- **Max Output Tokens:** `4096`
+- **Context Window:** `262144`
+- **Max Output Tokens:** `32768`
 
 ## `zsh: command not found: code`
 **Cause:** The VS Code CLI is not installed on macOS.

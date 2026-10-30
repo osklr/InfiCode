@@ -51,8 +51,8 @@ Write-Host @"
        Base URL         : http://localhost:8080/v1
        API Key          : anything
        Model ID         : kilo/poolside/laguna-s-2.1:free
-       Context Window   : 32000
-       Max Output Tokens: 4096
+       Context Window   : 262144
+       Max Output Tokens: 32768
        Supports Images  : OFF
        Supports Comp Use: ON
 

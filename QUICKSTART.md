@@ -42,8 +42,8 @@ Open VS Code, go to the Cline settings (gear icon), and set the following:
 - **Base URL:** `http://localhost:8080/v1`
 - **API Key:** `anything` (this is ignored by the local proxy)
 - **Model ID:** `kilo/poolside/laguna-s-2.1:free`
-- **Context Window:** `32000`
-- **Max Output Tokens:** `4096`
+- **Context Window:** `262144`
+- **Max Output Tokens:** `32768`
 - **Supports Images:** `OFF`
 - **Supports Computer Use:** `ON`
 

@@ -46,8 +46,8 @@ InfiCode is a reproducible VS Code environment template that connects Cline to a
    - **Base URL:** `http://localhost:8080/v1`
    - **API Key:** `anything`
    - **Model ID:** `kilo/poolside/laguna-s-2.1:free`
-   - **Context Window:** `32000`
-   - **Max Output Tokens:** `4096`
+   - **Context Window:** `262144`
+   - **Max Output Tokens:** `32768`
    - **Supports Images:** `OFF`
    - **Supports Computer Use:** `ON`
 
