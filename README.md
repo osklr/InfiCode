@@ -58,3 +58,6 @@ This project is an assembly template. It does not redistribute third-party code.
 
 ## Disclaimer
 Free API availability depends on upstream provider policies. InfiCode does not guarantee permanent free or unlimited use. Users are responsible for complying with each provider's terms. Do not send sensitive or proprietary code to free API pools.
+
+## Contributing
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
