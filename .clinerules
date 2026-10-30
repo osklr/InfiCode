@@ -1,18 +1,21 @@
 # InfiCode Cline Rules
 
+## File Exploration & Reading Rules
+1. **NEVER use terminal commands (like `ls`, `dir`, `Get-ChildItem`, `find`, `tree`) to explore, list, or read files.** Use your native `list_files` or `read_file` tools ONLY. Terminal output capture is often broken on Windows PowerShell and causes infinite loops. If the workspace is empty, do not try to explore it—just start building the requested files.
+
 ## File Creation & Editing Rules
-1. **NEVER use terminal commands (like `cat`, `echo`, or `python -c`) to write or modify files.** ALWAYS use your native file editing tools (`write_to_file`, `replace_in_file`, `edit_file`, `apply_diff`).
-2. **ALWAYS use relative paths** (e.g., `index.html`). NEVER use absolute paths like `/index.html` or `C:\path\to\file`.
-3. **For any file expected to exceed ~150 lines of code, you MUST use the skeleton strategy:**
+2. **NEVER use terminal commands (like `cat`, `echo`, or `python -c`) to write or modify files.** ALWAYS use your native file editing tools (`write_to_file`, `replace_in_file`, `edit_file`, `apply_diff`).
+3. **ALWAYS use relative paths** (e.g., `index.html`). NEVER use absolute paths like `/index.html` or `C:\path\to\file`.
+4. **For any file expected to exceed ~150 lines of code, you MUST use the skeleton strategy:**
    - First, use `write_to_file` to create the file with ONLY imports, class/function signatures, and placeholder comments (no implementations).
    - Then, use `replace_in_file` in multiple turns to fill in each section incrementally.
    - NEVER attempt to generate an entire large file in a single `write_to_file` call.
 
 ## One-File-Per-Response Rule
-4. **You MUST limit yourself to creating or editing AT MOST ONE (1) file per response.** After completing one file, stop and ask the user to continue before starting the next file. This prevents timeouts and provider exhaustion.
+5. **You MUST limit yourself to creating or editing AT MOST ONE (1) file per response.** After completing one file, stop and ask the user to continue before starting the next file. This prevents timeouts and provider exhaustion.
 
 ## Windows Compatibility
-5. Users may be on Windows PowerShell. Do not use Linux/Bash syntax (like heredocs `<< EOF`). Rely strictly on your built-in editor tools.
+6. Users may be on Windows PowerShell. Do not use Linux/Bash syntax (like heredocs `<< EOF`). Rely strictly on your built-in editor tools.
 
 ## Loop Prevention
-6. If a command or file edit fails, do not repeat the exact same action more than once. Analyze the error and change your approach.
+7. If a command or file edit fails, do not repeat the exact same action more than once. Analyze the error and change your approach.
