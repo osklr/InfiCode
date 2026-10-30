@@ -38,3 +38,10 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 2. Click **New Task** to start fresh.
 3. This repository includes a `.clinerules` file which tells Cline to use its native file tools instead of the terminal. Ensure this file is in your project root.
 4. Keep **"Execute commands"** unchecked in Cline's Auto-approve settings to prevent runaway terminal commands.
+
+## `ReadTimeout: The read operation timed out` or `all providers exhausted`
+**Cause:** The free model is trying to generate too much code in one response, and Cline's internal timeout (or the provider's connection limit) cuts it off.
+**Fix:**
+1. Stop the task, click **New Task (`+`)**.
+2. Split your request: ask for ONE file per message (e.g., "Create `dcf_engine.py` first. Do not create `app.py` yet.").
+3. The `.clinerules` file enforces one-file-per-response automatically, which prevents this error from happening in the first place.

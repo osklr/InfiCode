@@ -1,12 +1,18 @@
 # InfiCode Cline Rules
 
 ## File Creation & Editing Rules
-1. **NEVER use terminal commands (like `cat`, `echo`, or `python -c`) to write or modify files.** You must ALWAYS use your native `write_to_file` or `replace_in_file` tools.
-2. **ALWAYS use relative paths** (e.g., `index.html` or `scripts/test.py`). NEVER use absolute paths like `/index.html` or `C:\path\to\file`.
-3. If a file is too large to generate in one step, tell the user to increase the Max Output Tokens in your settings, but still use your native file tools.
+1. **NEVER use terminal commands (like `cat`, `echo`, or `python -c`) to write or modify files.** ALWAYS use your native file editing tools (`write_to_file`, `replace_in_file`, `edit_file`, `apply_diff`).
+2. **ALWAYS use relative paths** (e.g., `index.html`). NEVER use absolute paths like `/index.html` or `C:\path\to\file`.
+3. **For any file expected to exceed ~150 lines of code, you MUST use the skeleton strategy:**
+   - First, use `write_to_file` to create the file with ONLY imports, class/function signatures, and placeholder comments (no implementations).
+   - Then, use `replace_in_file` in multiple turns to fill in each section incrementally.
+   - NEVER attempt to generate an entire large file in a single `write_to_file` call.
+
+## One-File-Per-Response Rule
+4. **You MUST limit yourself to creating or editing AT MOST ONE (1) file per response.** After completing one file, stop and ask the user to continue before starting the next file. This prevents timeouts and provider exhaustion.
 
 ## Windows Compatibility
-- Users may be on Windows PowerShell. Do not use Linux/Bash syntax (like heredocs `<< EOF`). Rely strictly on your built-in editor tools.
+5. Users may be on Windows PowerShell. Do not use Linux/Bash syntax (like heredocs `<< EOF`). Rely strictly on your built-in editor tools.
 
 ## Loop Prevention
-- If a command fails, do not repeat the exact same command more than once. Analyze the error and change your approach.
+6. If a command or file edit fails, do not repeat the exact same action more than once. Analyze the error and change your approach.
