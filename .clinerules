@@ -1,5 +1,8 @@
 # InfiCode Cline Rules
 
+## Plan Mode Behavior
+0. **In Plan mode, do NOT explore the workspace with terminal commands.** Do not run `ls`, `dir`, `Get-ChildItem`, `git status`, or any similar command. If you need to know the workspace state, use your native `list_files` tool, or simply read the prompt the user gave you. Terminal output capture is often broken on Windows PowerShell and will cause an infinite loop.
+
 ## File Exploration & Reading Rules
 1. **NEVER use terminal commands (like `ls`, `dir`, `Get-ChildItem`, `find`, `tree`) to explore, list, or read files.** Use your native `list_files` or `read_file` tools ONLY. Terminal output capture is often broken on Windows PowerShell and causes infinite loops. If the workspace is empty, do not try to explore it—just start building the requested files.
 

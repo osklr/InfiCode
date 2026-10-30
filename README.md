@@ -51,6 +51,22 @@ InfiCode is a reproducible VS Code environment template that connects Cline to a
    - **Supports Images:** `OFF`
    - **Supports Computer Use:** `ON`
 
+## Building a New Project with InfiCode
+
+Cline only reads `.clinerules` from the **root of the folder you open in VS Code**.
+If you want to start a new project (e.g., `MyProject`) and use InfiCode's rules:
+
+### Option A (Recommended): Build inside the InfiCode folder
+1. Clone InfiCode.
+2. Create a subfolder: `mkdir projects/MyProject`.
+3. Open `InfiCode/` in VS Code as the workspace.
+4. Point Cline at `projects/MyProject/` — it will inherit `.clinerules` automatically.
+
+### Option B: Copy `.clinerules` to your new project
+1. Create your new project folder anywhere.
+2. Copy `.clinerules` from `InfiCode/` into your new project root.
+3. Open your new project in VS Code. Cline will now apply the rules.
+
 ## Dependencies & Licenses
 This project is an assembly template. It does not redistribute third-party code.
 - [freellmpool](https://github.com/0xzr/freellmpool) — MIT License
