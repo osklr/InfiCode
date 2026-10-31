@@ -7,18 +7,39 @@
 1. **NEVER use terminal commands (like `ls`, `dir`, `Get-ChildItem`, `find`, `tree`) to explore, list, or read files.** Use your native `list_files` or `read_file` tools ONLY. Terminal output capture is often broken on Windows PowerShell and causes infinite loops. If the workspace is empty, do not try to explore it—just start building the requested files.
 
 ## File Creation & Editing Rules
-2. **NEVER use terminal commands (like `cat`, `echo`, or `python -c`) to write or modify files.** ALWAYS use your native file editing tools (`write_to_file`, `replace_in_file`, `edit_file`, `apply_diff`).
+2. **NEVER use terminal commands (like `cat`, `echo`, `python -c`, `type >`, `Set-Content`) to write or modify files.** ALWAYS use your native file editing tools (`write_to_file`, `replace_in_file`, `edit_file`, `apply_diff`). **Tool names vary by Cline version** — use whichever native file-editing tool your environment exposes.
 3. **ALWAYS use relative paths** (e.g., `index.html`). NEVER use absolute paths like `/index.html` or `C:\path\to\file`.
 4. **For any file expected to exceed ~150 lines of code, you MUST use the skeleton strategy:**
    - First, use `write_to_file` to create the file with ONLY imports, class/function signatures, and placeholder comments (no implementations).
    - Then, use `replace_in_file` in multiple turns to fill in each section incrementally.
    - NEVER attempt to generate an entire large file in a single `write_to_file` call.
 
-## One-File-Per-Response Rule
-5. **You MUST limit yourself to creating or editing AT MOST ONE (1) file per response.** After completing one file, stop and ask the user to continue before starting the next file. This prevents timeouts and provider exhaustion.
+## Build-the-Whole-Plan Rule
+5. **Complete the entire plan in one continuous response whenever feasible.**
+   - You SHOULD chain multiple file creations and multiple `replace_in_file` calls in a single response, as long as you follow Rule 4 (skeleton strategy) for any file expected to exceed ~150 lines.
+   - Rule 4 is your safety mechanism: by keeping each individual tool call small, you avoid timeouts even while chaining many calls together.
+   - **Do NOT stop after each file** to ask the user for approval — this is unnecessary when auto-approve is enabled or when the user has asked you to build the whole plan.
+   - **Only stop early and ask the user to continue if:**
+     a) You hit a rate-limit error (HTTP 429) or a timeout (`ReadTimeout`),
+     b) A tool call fails unexpectedly and you cannot recover,
+     c) The user explicitly asked you to build step-by-step.
+   - When you do complete the plan, end your response with a concise summary of all files created and any manual steps the user still needs to perform (e.g., `pip install`, `streamlit run`).
 
 ## Windows Compatibility
-6. Users may be on Windows PowerShell. Do not use Linux/Bash syntax (like heredocs `<< EOF`). Rely strictly on your built-in editor tools.
+6. Users may be on Windows PowerShell. Do not use Linux/Bash syntax (like heredocs `<< EOF`, `&&`, `||`, `2>/dev/null`). Do not embed `&`, `|`, `>`, or `<` characters inside terminal strings — PowerShell will parse them as operators and fail. Rely strictly on your built-in editor tools.
 
 ## Loop Prevention
 7. If a command or file edit fails, do not repeat the exact same action more than once. Analyze the error and change your approach.
+
+## Fallback When Native File Tools Are Unavailable
+8. **First, check your available tools** (they are listed in your system prompt). If no native file-editing tool (`write_to_file`, `replace_in_file`, `edit_file`, `apply_diff`) exists:
+   - **Do NOT invent tool names** (never call `editor` or any tool not in your available list).
+   - **Do NOT use inline `python -c "..."` with multi-line code or special characters** (`&`, `|`, `>`, `<`) — PowerShell will reject them.
+   - **Use the base64 fallback** instead, which is shell-safe on all platforms:
+     1. Build the full new file content as a Python string in your reasoning.
+     2. Base64-encode it.
+     3. Run this exact shell command (single line, no inner backticks needed):
+        `python -c "import base64;open('PATH/TO/FILE','wb').write(base64.b64decode('BASE64_STRING'))"`
+     4. This works on bash and PowerShell without any quoting issues.
+   - For **edits** (not full rewrites), read the file with `read_file`, apply the change in your reasoning, and write it back using the same base64 command.
+   - **Do not ask the user to edit the file manually.** The base64 command is your hands.

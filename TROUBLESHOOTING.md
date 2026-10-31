@@ -33,23 +33,38 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ## Cline gets stuck in a recursive loop trying to create a file
 **Cause:** Sometimes, AI models try to use Linux/Bash terminal commands (like `cat > file.txt` or `python -c`) to create files. This fails on Windows PowerShell, causing Cline to repeat the same failing command in a loop.
-**Fix:** 
+**Fix:**
 1. Click the red **Stop** button in Cline to cancel the task.
 2. Click **New Task** to start fresh.
 3. This repository includes a `.clinerules` file which tells Cline to use its native file tools instead of the terminal. Ensure this file is in your project root.
 4. Keep **"Execute commands"** unchecked in Cline's Auto-approve settings to prevent runaway terminal commands.
 
 ## `ReadTimeout: The read operation timed out` or `all providers exhausted`
-**Cause:** The free model is trying to generate too much code in one response, and Cline's internal timeout (or the provider's connection limit) cuts it off.
+**Cause:** The free model is generating too much code at once, and either Cline's internal timeout or the provider's connection limit cuts it off mid-generation.
 **Fix:**
-1. Stop the task, click **New Task (`+`)**.
-2. Split your request: ask for ONE file per message (e.g., "Create `dcf_engine.py` first. Do not create `app.py` yet.").
-3. The `.clinerules` file enforces one-file-per-response automatically, which prevents this error from happening in the first place.
+1. Click the red **Stop** button, then **New Task (`+`)**.
+2. The `.clinerules` Rule 4 (skeleton strategy) already splits large files into small `replace_in_file` chunks to prevent this. If it still happens, the model may be ignoring the rule.
+3. If the model keeps timing out, switch to a more capable free model (e.g., from your `freellmpool models` list) or reduce the scope of your request.
 
 ## Cline gets stuck in a loop running `dir` or `ls` repeatedly
 **Cause:** On some Windows setups, Cline's terminal shell integration fails to capture command output. The AI thinks the command failed and keeps retrying. It also happens when the AI uses Linux commands (`ls`, `cat`) on Windows PowerShell.
 **Fix:**
 1. Click the red **Stop** button in Cline.
 2. Click **New Task** to start fresh.
-3. This repository includes a `.clinerules` file that forbids using terminal commands for file exploration. Ensure the file is present in the project root.
+3. This repository includes a `.clinerules` file (Rule 0 and Rule 1) that forbids using terminal commands for file exploration. Ensure the file is present in the project root.
 4. If shell integration keeps failing, open VS Code settings and disable `terminal.integrated.shellIntegration.enabled`, then reload VS Code.
+
+## Cline says `AI_NoSuchToolError: Model tried to call unavailable tool 'editor'`
+**Cause:** Some Cline versions do not expose `write_to_file`/`replace_in_file` tools in every mode. The AI, trying to edit a file, searches for a plausible tool name, fails, and falls back to `python -c`, which then breaks on Windows PowerShell (especially with `&`, `|`, `>` characters).
+**Fix:**
+1. Click the red **Stop** button.
+2. Open VS Code settings -> Cline -> ensure the assistant is in **Act/Agent mode** (not Ask mode), which enables file-editing tools.
+3. Start a **New Task** so the AI re-reads `.clinerules`.
+4. The `.clinerules` Rule 8 now instructs the AI to use a **base64-encoded Python write command** as a shell-safe fallback when native file tools are truly unavailable. Users do not need to edit files manually.
+
+## PowerShell `AmpersandNotAllowed` error when running `python -c`
+**Cause:** PowerShell treats `&` as the "call operator," so any string containing `&` (like `"D&A"`) inside a `python -c "..."` command will fail to parse.
+**Fix:**
+1. `.clinerules` Rule 6 now forbids embedding `&`, `|`, `>`, `<` inside terminal strings.
+2. `.clinerules` Rule 8 provides a **base64 fallback** that avoids these characters entirely when native file tools are unavailable.
+3. If you must use `python -c` manually, escape the `&` as backtick-ampersand or wrap the entire argument in single quotes.
