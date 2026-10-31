@@ -43,3 +43,11 @@
      4. This works on bash and PowerShell without any quoting issues.
    - For **edits** (not full rewrites), read the file with `read_file`, apply the change in your reasoning, and write it back using the same base64 command.
    - **Do not ask the user to edit the file manually.** The base64 command is your hands.
+
+## Python Project Rule
+9. **When building a project that uses Python (e.g., scripts, Streamlit apps, Flask, Django, data science), you MUST create a project-local virtual environment before installing any dependencies:**
+   - Run `python -m venv .venv`
+   - Activate it: `source .venv/bin/activate` (macOS/Linux) or `.venv\Scripts\Activate.ps1` (Windows)
+   - Then run `pip install -r requirements.txt` (or `pip install <package>`)
+   - **Never install Python packages globally** on the user's machine.
+   - This rule does NOT apply to non-Python projects (Node.js, Rust, static HTML/CSS, etc.).
